@@ -847,11 +847,8 @@ def _interactive_chat_loop(
             temperature=temperature,
             top_k=top_k,
         ):
-            print(
-                token := tokenizer.decode(next_ids.squeeze(), skip_special_tokens=True),
-                end="",
-                flush=True,
-            )
+            token = tokenizer.decode(next_ids.squeeze(), skip_special_tokens=True)  # type: ignore
+            print(token, end="", flush=True)
             turn_response += token
 
         messages.append({"role": "assistant", "content": turn_response.rstrip()})

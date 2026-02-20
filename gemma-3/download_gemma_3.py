@@ -19,24 +19,13 @@ except (ValueError, IndexError):
     print("Invalid selection. Exiting.")
     exit(1)
 
-
-DIR_NAME = "./"
-os.makedirs(DIR_NAME, exist_ok=True)
-
 print(f"[i] Model path: {MODEL_PATH}")
-print(f"[i] Directory: {DIR_NAME}")
 
-tokenizer = AutoTokenizer.from_pretrained(
-    MODEL_PATH,
-    cache_dir=f"./{DIR_NAME}/.cache",
-)
-model = AutoModelForCausalLM.from_pretrained(
-    MODEL_PATH,
-    cache_dir=f"./{DIR_NAME}/.cache",
-)
+tokenizer = AutoTokenizer.from_pretrained(MODEL_PATH, cache_dir=f"./.cache")
+model = AutoModelForCausalLM.from_pretrained(MODEL_PATH, cache_dir=f"./.cache")
 
 model_name = MODEL_PATH.split("/")[-1]
-print(f"[i] Loaded {model_name} model")
+print(f"[i] Loaded {model_name}")
 
 messages = [{"role": "user", "content": "Who are you?"}]
 inputs = tokenizer.apply_chat_template(
@@ -59,5 +48,5 @@ print(
 )
 
 # Save raw PyTorch model
-torch.save(model.state_dict(), f"./{DIR_NAME}/{model_name}.pt")
-print(f"[i] Saved the model to ./{DIR_NAME}/{model_name}.pt")
+torch.save(model.state_dict(), f"./{model_name}.pt")
+print(f"[i] Saved the model to ./{model_name}.pt")

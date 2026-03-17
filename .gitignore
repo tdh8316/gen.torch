@@ -8,4 +8,6 @@ __pycache__/
 # Hugging Face cache
 **/.cache/
 
+# Stubs
+AGENTS.md
 extract_from_huggingface.py
